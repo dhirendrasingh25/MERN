@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<button onclick="alert('Hello from button');" class="btn btn-primary">CLICK HERE</button>
+<button id="button2" class="btn btn-success">CLICK HERE</button>
+<button onmouseover="alert('Hello from button 3');"     class="btn btn-info">HOVER OVER ME</button>
+<script>
+
+document.getElementById('button2').onclick = function() {
+clickMeFunction()
+};
+
+ function clickMeFunction() {
+ alert('Hello from the best function, yayyyyyyyy');
+ }
+</script>	
+</body>
+</html>

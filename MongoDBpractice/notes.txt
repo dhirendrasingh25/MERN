@@ -1,0 +1,269 @@
+What is DATA
+
+text
+images
+auido
+vedio
+gif
+colorcode
+dates & time
+Location
+-biometrics
+-boolean
+
+images : RGB 
+
+
+MongoDB Shell (Mongosh)
+MongoDB Compass (GUI)
+MongoDB Atlas CLI  // Product of MongoDB with extra features like server
+MongoDb CLI for Cloud Manager (Advance)
+
+
+BASICS of MongoDB 
+What is BSON?
+
+BSON stands for “Binary JSON,” and that’s exactly what it was invented to be. 
+BSON’s binary structure encodes type and length information,
+which allows it to be traversed much more quickly compared to JSON.
+
+BSON adds some non-JSON-native data types, like dates and binary data,
+without which MongoDB would have been missing some valuable support.
+
+The following are some example JSON objects and their corresponding 
+BSON representations.
+
+
+{
+  "_id": 1,
+  "name": { "first" : "John", "last" : "Backus" },
+  "contribs": [ "Fortran", "ALGOL", "Backus-Naur Form", "FP" ],
+  "awards": [
+    {
+      "award": "W.W. McDowell Award",
+      "year": 1967,
+      "by": "IEEE Computer Society"
+    }, {
+      "award": "Draper Prize",
+      "year": 1993,
+      "by": "National Academy of Engineering"
+    }
+  ]
+}
+
+{"hello": "world"} →
+\x16\x00\x00\x00           // total document size
+\x02                       // 0x02 = type String
+hello\x00                  // field name
+\x06\x00\x00\x00world\x00  // field value
+\x00                       // 0x00 = type EOO ('end of object')
+ 
+{"BSON": ["awesome", 5.05, 1986]} →
+\x31\x00\x00\x00
+ \x04BSON\x00
+ \x26\x00\x00\x00
+ \x02\x30\x00\x08\x00\x00\x00awesome\x00
+ \x01\x31\x00\x33\x33\x33\x33\x33\x33\x14\x40
+ \x10\x32\x00\xc2\x07\x00\x00
+ \x00
+ \x00
+
+
+
+ JSON Example
+
+
+{
+  "Name": "Sameer",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+},
+{
+  "Name": "Ayush",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+},
+{
+  "Name": "Ansh",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+}
+
+//Object _id
+
+
+
+
+// Commands
+
+db.grades.insertOne({ student_id: 101, score: { eng: 50, maths: 55 } })
+db.grades.insertMany([
+  {
+    student_id: 102,
+    name: "Ansh Solanki",
+    score: { maths: 60, eng: 60 }
+  },
+  {
+    student_id: 103,
+    name: "Ayush Singh",
+    score: { maths: 70, eng: 60 }
+  },
+  {
+    student_id: 104,
+    name: "Vivek Yadav",
+    score: { maths: 60, eng: 90 }
+  },
+  {
+    student_id: 105,
+    name: "Sarang Tripathi",
+    score: { maths: 30, eng: 60 }
+  },
+  {
+    student_id: 106,
+    name: "Sidh Singh",
+    score: { maths: 90, eng: 60 }
+  }
+]);
+
+db.fin()
+db.grades.find({name:"Ansh Solanki"})
+db.grades.find({name:"Ansh Solanki"}).pretty 
+
+                      returnType: 'this',
+                      serverVersions: [ '0.0.0', '999.999.999' ],
+                      apiVersions: [ 0, Infinity ],
+                      topologies: [ 'ReplSet', 'Sharded', 'LoadBalanced', 'Standalone' ],
+                      returnsPromise: false,
+                      deprecated: false,
+                      platforms: [ 'Compass', 'Browser', 'CLI' ],
+                      isDirectShellCommand: false,
+                      acceptsRawInput: false,
+                      shellCommandCompleter: undefined,
+                      help: [Function (anonymous)] Help
+
+db.grades.find({student_id:{$gte:26}})  // gte greater than  equal   ,gt  for equal
+db.grades.find({student_id:{$lte:26}})  // lte lower than equal , lt for lower
+db.grades.find({student_id:{$in:[20,30,19]}}) // find id equal to 20,30,19
+db.grades.find({student_id: { $gte: 20, $lte: 40 } })   // find in range
+db.grades.find({city:{$in:["Mumbai"]}}) // Search String
+db.grades.find({name:{$regex:"Singh"}})  // Regex expression to check certain String
+db.grades.find({"scores.maths":{$gt:60}})
+db.students.find({
+  scores: { $elemMatch: { subject: "maths", marks: { $gt: 90 } } }
+})
+
+db.products.countDocuments()  // count number
+
+db.products.findOne({rating:{$gte:2}},{'title':1,'_id':0})
+{ title: 'iPhone 9' }
+
+
+
+// Logical Operator
+// Update
+db.students.updateMany(
+  {
+    $or: [
+      { "score.maths": { $lt: 35 } },
+      { "score.eng": { $lt: 35 } }
+    ]
+  },
+  { $set: { status: "fail" } }
+)
+
+db.grades.find({
+  $and: [
+    { student_id: { $gt: 26 } },
+    { "score.maths": { $gt: 50 } },
+    { "score.eng": { $gt: 50 } }
+  ]
+})
+
+db.grades.find({
+  $and: [
+    { Class: 401 },
+    {
+      $or: [
+        { "score.maths": { $gte: 50 } },
+        { "score.eng": { $gte: 50 } }
+      ]
+    }
+  ]
+})
+
+{}
+db.sir.updateMany({}, { $set: { hobbies: "Dancing" } })
+db.sir.updateMany(
+   { "marks.maths": { $lte: 35 } },
+   { $set: { status: "ATKT" } }
+)
+
+//conditional query
+
+
+
+db.grades.updateOne({ student_id: 101 }, { $set: { name: "Sameer" } }, { upsert: true })  
+
+db.grades.updateOne(
+   { _id: ObjectId("60e47ebe3778bdc028cb0569") },
+   { $push: { hobbies: "Reading" } }
+)
+
+
+db.users.replaceOne(
+   { _id: ObjectId("1234567890") },
+   {
+      name: "John Doe",
+      age: 30,
+      email: "john@example.com"
+   }
+)
+db.products.bulkWrite([
+   { insertOne: { document: { name: "Product 1", price: 10 } } },
+   { updateOne: { filter: { name: "Product 2" }, update: { $inc: { price: 5 } } } },
+   { deleteOne: { filter: { name: "Product 3" } } }
+])
+
+
+```
+
+db.grades.bulkWrite(
+    [
+        {
+            updateMany: {
+                "filter": {"marks" : {$elemMatch : {"maths" : {$lt : 35}}}},
+                "update": {
+                    $set: {
+                        "status": "ATKT"
+                    }
+                }
+            }
+        },
+        {
+            updateMany: {
+                "filter": {"marks" : {$elemMatch : {"maths" : {$gte : 35}}}},
+                "update": {
+                    $set: {
+                        "status": "PASS"
+                    }
+                }
+            }
+        }
+    ]
+)
+```

@@ -1,0 +1,15 @@
+{
+  "name": "node-example",
+  "version": "1.0.0",
+  "description": "A example of node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dhirendra Singh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}

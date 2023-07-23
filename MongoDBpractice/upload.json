@@ -1,0 +1,39 @@
+[{
+  "Name": "Sameer",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+},
+{
+  "Name": "Ayush",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+},
+{
+  "Name": "Ansh",
+  "Email": "test@gmail.com",
+  "Marks": {
+    "Eng": 50,
+    "Maths": 50,
+    "Science": 50
+  },
+  "Hobbies": ["chess", "Football"]
+}]
+
+
+
+
+
+
+
+
+
